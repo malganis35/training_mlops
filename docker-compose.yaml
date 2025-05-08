@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  streamlit_app:
+    build: .
+    container_name: streamlit_app
+    ports:
+      - "8502:8502"
+    command: sh -c "cd app && streamlit run app_demo.py --server.port=8502"
+    # Optionnel : montage du volume pour le développement
+    # volumes:
+    #   - .:/app_keyrus
+  fastapi_app:  # Nouveau service
+    build: .    # Utilise le même Dockerfile que streamlit_app
+    container_name: fastapi_app
+    ports:
+      - "8601:8601"
+    command: uvicorn app.api_demo:app --host 0.0.0.0 --port 8601

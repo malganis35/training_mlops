@@ -1,0 +1,43 @@
+# Source:
+# https://medium.com/internet-of-technology/beautify-your-python-code-with-pre-commit-linters-a-step-by-step-guide-d63604d6120b
+# https://medium.com/marvelous-mlops/welcome-to-pre-commit-heaven-5b622bb8ebce
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # check-ast: Checks the syntax and structure of Python code using the Abstract Syntax Tree (AST).
+      - id: check-ast
+      # check-added-large-files: Ensures that large files are not accidentally added to the repository.
+      - id: check-added-large-files
+      # check-yaml: Validates YAML files for syntax errors
+      - id: check-yaml
+      # check-toml: Validates TOML files for syntax errors.
+      - id: check-toml
+      # check-json: Validates JSON files for syntax errors.
+      - id: check-json
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      # check-shebang-scripts-are-executable: Verifies that shebang scripts (scripts starting with #!/) are executable.
+      - id: check-shebang-scripts-are-executable
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.9.7
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--skip", "dq_text2sql", "--profile", "black"]
+  # bandit: Checks for common security issues in Python code.
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+      - id: bandit
+        args: ["-r", "src", "app"]  # Recursive analysis on src/ folders
+        pass_filenames: false  # do not allow pre-commit to pass files

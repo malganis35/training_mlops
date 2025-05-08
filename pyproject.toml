@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68.0.0", "uv>=0.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cao_tri_do_marvelous_mlops_training"
+version = "0.1.0"
+description = "A short description of the project."
+authors = [
+    { name = "Cao Tri DO, Keyrus DS, Lyon, France", email = "keyrus@keyrus.com" }
+]
+maintainers = [
+    { name = "Keyrus FR DS Team", email = "keyrus@keyrus.com" }
+]
+readme = "README.md"
+license = { text = "" }
+keywords = ["python", "keyrus", "data-science"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.10"
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+homepage = "Code repo URL for your projects"
+
+[project.scripts]
+cli_hello_world = "project_name.cli_main_script:hello_world"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = { find = { where = ["src"] } }
+
+[tool.setuptools.dynamic]
+# for prod
+dependencies = { file = ["requirements.txt"] }
+# for dev
+optional-dependencies = { dev = { file = ["requirements-dev.txt"] } }
+
+# Configuration optionnelle pour uv (si nécessaire)
+[tool.uv]
+# Exemple de configuration possible :
+resolution = "highest"
